@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry location="F:\ideaworkspace\mybatis\src\main\resources\codeGeneration\mysql-connector-java-5.1.29.jar" />
+
+	<context id="context" targetRuntime="MyBatis3">
+		<!-- 属性定义 -->
+		<property name="javaFileEncoding" value="UTF-8" />
+
+		<!-- #####value改成相应模块名##### -->
+		<property name="moduleName" value="tt" />
+
+		<!-- 插件定义 -->
+		<!--  adds equals and hashCode methods to the Java model objects -->
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+
+		<!-- adds the marker interface java.io.Serializable to the Java model objects -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+		<!-- Example替换为Criteria -->
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+
+
+		<!-- 生成服务层接口代码 -->
+		<!--<plugin type="com.zzx.util.generator.mybatis.ServiceGeneratorPlugin">
+			<property name="targetProject" value="../java" />
+			<property name="targetPackage" value="com.zzx.service" />
+		</plugin>-->
+
+		<!-- 生成服务层实现代码 -->
+		<!--<plugin type="com.zzx.util.generator.mybatis.ServiceImplGeneratorPlugin">
+			<property name="targetProject" value="../java" />
+			<property name="targetPackage" value="com.zzx.service.impl" />
+		</plugin>-->
+
+		<!-- 生成控制层代码 -->
+		<!--<plugin type="com.zzx.util.generator.mybatis.ControllerGeneratorPlugin">
+			<property name="targetProject" value="../java" />
+			<property name="targetPackage" value="com.zzx.controller" />
+		</plugin>-->
+
+
+		<!-- 数据库连接配置 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://127.0.0.1:3306/demo_db"
+						userId="root"
+						password="123qwe" />
+
+		<!-- 生成实体类 -->
+		<javaModelGenerator targetPackage="com.zzx.pojo"
+							targetProject="../java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+			<property name="javaFormatter" value="true" />
+		</javaModelGenerator>
+
+		<!-- 生成 *Mapper.xml -->
+		<sqlMapGenerator targetPackage="com.zzx.mapper"
+						 targetProject="../java">
+			<property name="enableSubPackages" value="true" />
+			<property name="xmlFormatter" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 生成 *Mapper.java接口文件 -->
+		<javaClientGenerator targetPackage="com.zzx.mapper"
+							 targetProject="../java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="true" />
+			<property name="javaFormatter" value="true" />
+		</javaClientGenerator>
+
+		<!-- #####tableName改成相应的表名##### -->
+		<table schema="demo_db" tableName="items" tableRemark=""
+			   enableInsert="true"
+			   enableInsertSelective="true"
+			   enableSelectByPrimaryKey="true"
+			   enableSelectByExample="true"
+			   enableUpdateByPrimaryKey="true"
+			   enableUpdateByPrimaryKeySelective="true"
+			   enableDeleteByPrimaryKey="true"
+			   enableDeleteByExample="true"
+			   enableCountByExample="true"
+			   enableUpdateByExample="true"
+			   selectByPrimaryKeyQueryId=""
+			   selectByExampleQueryId="">
+		</table>
+	</context>
+
+</generatorConfiguration>

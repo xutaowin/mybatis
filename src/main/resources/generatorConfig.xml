@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="F:\projdemo\mybatis\src\main\resources\codeGeneration\mysql-connector-java-5.1.29.jar" />
+
+    <context id="testTables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <!--是否去除自动生成的注释true：是 false ：否-->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库连接的信息：驱动类，连接地址，用户名，密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/demo_db"
+                        userId="root"
+                        password="123qwe">
+        </jdbcConnection>
+
+        <!--默认false，把JDBC DECIMAL和NUMERIC 类型解析为Integer，为true时把JDBC DECIMAL和NUMERIC
+         类型解析为java.math.BigDecimal-->
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!--targetProject:生成PO类的位置-->
+        <javaModelGenerator targetPackage="com.dbapp.mybatis.generator.pojo" targetProject="src/main/java">
+            <!--enableSubPackages:是否让schema作为包的后缀-->
+            <property name="enableSubPackages" value="false" />
+            <!--从数据库返回的值被清理前后的空格-->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--targetPackage:mapper映射文件的生成位置-->
+        <sqlMapGenerator targetPackage="com.dbapp.mybatis.generator.mapper"  targetProject="src/main/java">
+            <!--enableSubPackages:是否让schema作为包的后缀-->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!--targetPackage:mapper接口生成的位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.dbapp.mybatis.generator.mapper"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!--指定数据库表-->
+        <table tableName="items"></table>
+        <table tableName="orders"></table>
+        <table tableName="order_detail"></table>
+        <table tableName="user"></table>
+        <!--有些表的字段需要指定java类型-->
+        <!--schema:数据库的schema,可以使用SQL通配符匹配。如果设置了该值，
+        生成SQL的表名会变成如schema.tableName的形式。
+        domainObjectName:是要生成的实体类-->
+        <!--<table schema="demo_db" tableName="user" domainObjectName="User">
+            &lt;!&ndash;<columnOverride column="DATE_FIELD" property="startDate" />&ndash;&gt;
+        </table>-->
+    </context>
+ </generatorConfiguration>

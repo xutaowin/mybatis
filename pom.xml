@@ -1,0 +1,302 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.dbapp.mybatis</groupId>
+  <artifactId>mybatis</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>mybatis_demo</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring.version>4.1.6.RELEASE</spring.version>
+    <mybatis.version>3.2.8</mybatis.version>
+    <mybatis.spring.version>1.3.0</mybatis.spring.version>
+    <junit.version>4.11</junit.version>
+    <mysql.jdbc.driver.groupId>mysql</mysql.jdbc.driver.groupId>
+    <mysql.jdbc.driver.artifactId>mysql-connector-java</mysql.jdbc.driver.artifactId>
+    <mysql.jdbc.driver.version>5.1.31</mysql.jdbc.driver.version>
+    <slf4j.version>1.7.5</slf4j.version>
+    <logback.version>1.0.11</logback.version>
+    <ehcache.version>2.6.5</ehcache.version>
+    <aspectjrt.version>1.7.2</aspectjrt.version>
+    <aspectjweaver.version>1.7.2</aspectjweaver.version>
+    <druid.version>1.0.22</druid.version>
+    <commons-dbcp.version>1.4</commons-dbcp.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
+    <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
+    <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
+    <mybatis-generator-maven-plugin.version>1.3.2</mybatis-generator-maven-plugin.version>
+  </properties>
+
+  <dependencies>
+    <!-- SPRING basic begin(一般不需要显式定义) -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!-- freemarker -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-websocket</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-messaging</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <!-- SPRING basic end -->
+    <!-- AOP begin -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>${aspectjrt.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectjweaver.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- AOP end -->
+    <!-- mybatis核心包 -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>${mybatis.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>${mybatis.spring.version}</version>
+    </dependency>
+    <!--junit-->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+    </dependency>
+    <!-- jdbc driver -->
+    <dependency>
+      <groupId>${mysql.jdbc.driver.groupId}</groupId>
+      <artifactId>${mysql.jdbc.driver.artifactId}</artifactId>
+      <version>${mysql.jdbc.driver.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- datasource pool begin-->
+    <!--mybatis生成代码jar begin-->
+    <dependency>
+      <groupId>org.mybatis.generator</groupId>
+      <artifactId>mybatis-generator-core</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+    <!--mybatis生成代码jar end-->
+    <!--druid-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>${druid.version}</version>
+    </dependency>
+    <!--dbcp-->
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>${commons-dbcp.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- datasource pool end-->
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+    <!-- logging begin -->
+    <!-- logback -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+    <!-- log4j 实际调用slf4j -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>log4j-over-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- java.util.logging 实际调用slf4j -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- logging end -->
+    <!--cglib-->
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>3.2.4</version>
+    </dependency>
+    <!-- CACHE begin -->
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache-core</artifactId>
+      <version>${ehcache.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-ehcache</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <!-- CACHE end -->
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
+  </dependencies>
+  <!-- idea不会编译src的java目录下的的xml文件 手工配置如下-->
+  <build>
+    <directory>${project.basedir}/target</directory>
+    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+    <finalName>springmvc_demo</finalName>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/src/main/java</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <includes>
+          <include>*.xml</include>
+          <include>*.properties</include>
+          <include>*.json</include>
+          <include>*.html</include>
+        </includes>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+          <showWarnings>true</showWarnings>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven-resources-plugin.version}</version>
+        <configuration>
+          <nonFilteredFileExtensions>
+            <!-- 过滤流程定义资源文件 -->
+            <nonFilteredFileExtension>zip</nonFilteredFileExtension>
+            <nonFilteredFileExtension>bar</nonFilteredFileExtension>
+            <nonFilteredFileExtension>png</nonFilteredFileExtension>
+            <nonFilteredFileExtension>bpmn</nonFilteredFileExtension>
+          </nonFilteredFileExtensions>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <forkMode>once</forkMode>
+          <argLine>-Dfile.encoding=UTF-8</argLine>
+          <systemProperties>
+            <property>
+              <name>net.sourceforge.cobertura.datafile</name>
+              <value>target/cobertura/cobertura.ser</value>
+            </property>
+          </systemProperties>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>${mybatis-generator-maven-plugin.version}</version>
+        <configuration>
+          <configurationFile>src/main/resources/mybatisG/mybatisConfigOracle.xml</configurationFile>
+          <overwrite>false</overwrite>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <classifier>jar</classifier>
+          <excludes>
+            <exclude>*.xml</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

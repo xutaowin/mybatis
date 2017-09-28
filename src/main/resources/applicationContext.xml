@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!--加载配置文件-->
+    <context:property-placeholder location="jdbc.properties"/>
+    <!--配置数据源 dbcp-->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="30"/>
+        <property name="maxIdle" value="5"/>
+    </bean>
+    <!-- 配置数据源 druid-->
+    <!--<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        &lt;!&ndash; 初始化连接大小 &ndash;&gt;
+        <property name="initialSize" value="0" />
+        &lt;!&ndash; 连接池最大使用连接数量 &ndash;&gt;
+        <property name="maxActive" value="100" />
+        &lt;!&ndash; 连接池最小空闲 &ndash;&gt;
+        <property name="minIdle" value="0" />
+        &lt;!&ndash; 获取连接最大等待时间 &ndash;&gt;
+        <property name="maxWait" value="60000" />
+        &lt;!&ndash; <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> &ndash;&gt;
+        <property name="validationQuery" value="SELECT 1" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+        <property name="testWhileIdle" value="true" />
+        &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;
+        <property name="minEvictableIdleTimeMillis" value="25200000" />
+        &lt;!&ndash; 打开removeAbandoned功能 &ndash;&gt;
+        <property name="removeAbandoned" value="true" />
+        &lt;!&ndash; 1800秒，也就是30分钟 &ndash;&gt;
+        <property name="removeAbandonedTimeout" value="1800" />
+        &lt;!&ndash; 关闭abanded连接时输出错误日志 &ndash;&gt;
+        <property name="logAbandoned" value="true" />
+        &lt;!&ndash;  防御SQL注入攻击 监控数据库&ndash;&gt;
+        &lt;!&ndash; <property name="filters" value="mergeStat"  /> &ndash;&gt;
+        <property name="filters" value="wall,stat"/>
+    </bean>-->
+    <!--sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--加载mybatis的全局配置文件-->
+        <property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+    </bean>
+    <!--原始dao-->
+    <bean id="userDao" class="com.dbapp.mybatis.dao.impl.UserDaoImpl">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+    <!--mapper配置 单个mapper代理对象
+    MapperFactoryBean:根据mapper接口来生成代理对象
+    每个mapper接口对应一个配置 麻烦-->
+    <!--<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        &lt;!&ndash;mapperInterface:指定mapper接口&ndash;&gt;
+        <property name="mapperInterface" value="com.dbapp.mybatis.mapper.UserMapper"/>
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>-->
+    <!--mapper批量扫描器,从mapper包中扫描出mapper接口，自动创建代理对象并且在spring容器中进行注册
+    遵循规范:需要将mapper接口名称与映射文件名称保持一致，并且在同一个文件夹
+    自动扫描出来的mapper的bean的id为mapper类名（首字母小写）-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描的包路径 如果扫描多个包使用半角的,分隔
+        不能使用通配符-->
+        <property name="basePackage" value="com.dbapp.mybatis.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+</beans>

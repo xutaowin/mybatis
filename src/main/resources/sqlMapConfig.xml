@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--
+    加载属性文件 注意：mybatis将按照下面的顺序加载属性
+    1.在properties元素体内定义的属性首先被读取
+    2.然后会读取properties元素中的resource或者url加载的属性，它会覆盖已读取的同名属性
+    3.最后读取parameter传递的属性，它会覆盖已读取的同名属性
+    因此：通过parameter传递的属性具有最高优先级，resource或者url加载的属性次之，
+    最低优先级的是properties元素体内定义的属性
+    -->
+    <!--<properties resource="jdbc.properties">
+        &lt;!&ndash;不建议&ndash;&gt;
+        &lt;!&ndash;<property name="" value=""/>&ndash;&gt;
+    </properties>-->
+    <!--全局的配置参数-->
+    <settings>
+        <!-- 打开延迟加载的开关 -->
+        <setting name="lazyLoadingEnabled" value="true" />
+        <!-- 将积极加载变为消极加载，即按需加载 -->
+        <setting name="aggressiveLazyLoading" value="false" />
+        <!--开启二级缓存 默认true 显示写出来为了提高代码可读性-->
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <!--别名的定义-->
+    <typeAliases>
+        <!--针对单个别名
+        type:类型的路径 alias:别名
+        -->
+        <!--<typeAlias type="com.dbapp.mybatis.pojo.User" alias="user"/>-->
+        <typeAlias type="com.dbapp.mybatis.pojo.User" alias="user"/>
+        <!--批量别名定义 指定包名，mybatis自动扫描包中的pojo类，
+        自定义别名,别名就是类名（首字母大写或者小写都可以）-->
+        <!--<package name="com.dbapp.mybatis.pojo"/>-->
+    </typeAliases>
+
+    <typeHandlers>
+        <typeHandler handler="com.dbapp.mybatis.handler.EscapeStringTypeHandler" javaType="String" jdbcType="VARCHAR" />
+    </typeHandlers>
+
+    <!--和spring整合后environment配置将废弃-->
+    <environments default="development">
+        <environment id="development">
+            <!--使用jdbc事务管理 事务控制由mybatis控制-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--数据库连接池 由mybatis管理-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <!--需要注意的是，在xml配置文件中，url中的&符号需要转义成&amp;-->
+                <property name="url" value="jdbc:mysql://localhost:3306/demo_db?useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123qwe"/>
+                <!--<property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>-->
+            </dataSource>
+        </environment>
+    </environments>
+    <!--加载映射文件-->
+    <mappers>
+        <!--通过resource一次加载一个-->
+         <mapper resource="sqlmap/User.xml"/>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <!--通过mapper接口加载映射文件
+        遵循规范:需要将mapper接口名称与映射文件名称保持一致，并且在同一个文件夹
+        使用的前提是:mapper代理的方法-->
+        <!--<mapper class="com.dbapp.mybatis.mapper.UserMapper"/>-->
+        <!--批量加载mapper(推荐使用),指定mapper接口的包名，mybatis自动加载包下面的mapper接口
+        遵循规范:需要将mapper接口名称与映射文件名称保持一致，并且在同一个文件夹
+        使用的前提是:mapper代理的方法-->
+        <!--<package name="com.dbapp.mybatis.mapper"/>-->
+    </mappers>
+
+</configuration>
