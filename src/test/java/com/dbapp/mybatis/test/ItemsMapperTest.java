@@ -26,7 +26,7 @@ public class ItemsMapperTest {
         ItemsExample itemsExample = new ItemsExample();
         //通过criteria构造查询条件
         ItemsExample.Criteria criteria = itemsExample.createCriteria();
-        criteria.andNameLike("think3");
+        criteria.andNameLike("think2");
         //可能返回多条
         List<Items> itemsList = itemsMapper.selectByExample(itemsExample);
         System.out.println(itemsList);
