@@ -1,0 +1,3 @@
+mytest.txt==dev
+a new function
+master and dev's program
