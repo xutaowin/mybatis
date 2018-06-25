@@ -18,7 +18,7 @@ public class UserMapperSpringTest {
     private ApplicationContext applicationContext;
     @Before
     public void setUp(){
-        applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        applicationContext = new ClassPathXmlApplicationContext(new String[]{"spring-context-common.xml","spring-context-transaction.xml"});
     }
     @Test
     public void testFindUserById(){

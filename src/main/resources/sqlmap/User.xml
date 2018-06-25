@@ -15,7 +15,8 @@
     resultType指定sql输出结果的映射的java对象类型，select指定resultType将单条记录
     映射成java对象
     -->
-    <select id="findUserById" parameterType="int" resultType="com.dbapp.mybatis.pojo.User">
+    <cache/>
+    <select id="findUserById" parameterType="int" resultType="com.dbapp.mybatis.pojo.User" useCache="true">
       select id,username,birthday,sex,address from user where id = #{id}
     </select>
     <!--

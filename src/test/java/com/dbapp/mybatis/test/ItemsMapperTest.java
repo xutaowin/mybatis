@@ -18,7 +18,7 @@ public class ItemsMapperTest {
     private ItemsMapper itemsMapper;
     @Before
     public void setUp(){
-        applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        applicationContext = new ClassPathXmlApplicationContext("spring-context-common.xml");
         itemsMapper = (ItemsMapper)applicationContext.getBean("itemsMapper");
     }
     @Test

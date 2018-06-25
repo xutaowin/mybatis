@@ -12,49 +12,50 @@
             http://www.springframework.org/schema/context/spring-context.xsd
             http://www.springframework.org/schema/tx
             http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <context:component-scan base-package="com.dbapp.mybatis.service"/>
     <!--加载配置文件-->
     <context:property-placeholder location="jdbc.properties"/>
     <!--配置数据源 dbcp-->
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <!--<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
         <property name="maxActive" value="30"/>
         <property name="maxIdle" value="5"/>
-    </bean>
+    </bean>-->
     <!-- 配置数据源 druid-->
-    <!--<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+    <bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="url" value="${jdbc.url}" />
         <property name="username" value="${jdbc.username}" />
         <property name="password" value="${jdbc.password}" />
-        &lt;!&ndash; 初始化连接大小 &ndash;&gt;
+        <!-- 初始化连接大小 -->
         <property name="initialSize" value="0" />
-        &lt;!&ndash; 连接池最大使用连接数量 &ndash;&gt;
+        <!-- 连接池最大使用连接数量 -->
         <property name="maxActive" value="100" />
-        &lt;!&ndash; 连接池最小空闲 &ndash;&gt;
+        <!-- 连接池最小空闲 -->
         <property name="minIdle" value="0" />
-        &lt;!&ndash; 获取连接最大等待时间 &ndash;&gt;
+        <!-- 获取连接最大等待时间 -->
         <property name="maxWait" value="60000" />
-        &lt;!&ndash; <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> &ndash;&gt;
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
         <property name="validationQuery" value="SELECT 1" />
         <property name="testOnBorrow" value="false" />
         <property name="testOnReturn" value="false" />
         <property name="testWhileIdle" value="true" />
-        &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
         <property name="timeBetweenEvictionRunsMillis" value="60000" />
-        &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
         <property name="minEvictableIdleTimeMillis" value="25200000" />
-        &lt;!&ndash; 打开removeAbandoned功能 &ndash;&gt;
+        <!-- 打开removeAbandoned功能 -->
         <property name="removeAbandoned" value="true" />
-        &lt;!&ndash; 1800秒，也就是30分钟 &ndash;&gt;
+        <!-- 1800秒，也就是30分钟 -->
         <property name="removeAbandonedTimeout" value="1800" />
-        &lt;!&ndash; 关闭abanded连接时输出错误日志 &ndash;&gt;
+        <!-- 关闭abanded连接时输出错误日志 -->
         <property name="logAbandoned" value="true" />
-        &lt;!&ndash;  防御SQL注入攻击 监控数据库&ndash;&gt;
-        &lt;!&ndash; <property name="filters" value="mergeStat"  /> &ndash;&gt;
+        <!--  防御SQL注入攻击 监控数据库-->
+        <!-- <property name="filters" value="mergeStat"  /> -->
         <property name="filters" value="wall,stat"/>
-    </bean>-->
+    </bean>
     <!--sqlSessionFactory-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <!--数据库连接池-->
